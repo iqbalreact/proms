@@ -15,11 +15,8 @@
 <body>
 
     <?php defined('BASEPATH') OR exit('No direct script access allowed');
-
-        tpl_assign("title_for_layout", lang('c_4'));
-        tpl_assign("heading_for_dialog", lang('c_6'));
-
-        tpl_assign("header_for_layout", '
+       
+       tpl_assign("header_for_layout", '
         <meta name="robots" content="noindex">
         ');
 
@@ -69,8 +66,6 @@
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/><br><br>
                                 <!-- <figure><img src="images/ristekdikti.png" alt="" style="height: 100px;"> <img src="images/logo-baru.jpg" alt="" style="height: 100px;"></figure> -->
                             </div>
-                            <p>&nbsp;</p>
-                            <p align="center"><a href="<?php echo get_page_base_url('access/forgot_password'); ?>"><?php echo lang('c_5'); ?></a></p>
                         </form>
                     </div>
                 </div>
@@ -82,5 +77,29 @@
     <!-- JS -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/main.js"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</body>
 </html>
+
+
+<form id="login-form" method="post">
+
+<div class="form-group">
+        <input class="form-control" placeholder="<?php echo lang('c_1'); ?>" name="email" id="email" type="text" maxlength="100" value="<?php echo clean_field($email); ?>" autofocus>
+</div>
+
+<div class="form-group">
+        <input class="form-control" placeholder="<?php echo lang('c_2'); ?>" name="password" id="password" type="password" value="demo1234">
+</div>
+
+<div class="form-group">
+        <label><input name="remember" type="checkbox"<?php echo ($remember ? ' checked="checked"' : ''); ?>> &nbsp;<?php echo lang('c_3'); ?></label>
+</div>
+
+<input type="hidden" name="submited" value="submited" />
+
+<button type="submit" class="btn btn-lg btn-success btn-block"><?php echo lang('c_4'); ?></button>
+
+<p>&nbsp;</p>
+<p align="center"><a href="<?php echo get_page_base_url('access/forgot_password'); ?>"><?php echo lang('c_5'); ?></a></p>
+
+</form>
