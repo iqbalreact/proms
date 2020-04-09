@@ -1,3 +1,4 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,29 +8,13 @@
     <title>Login</title>
 
     <!-- Font Icon -->
-    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/fonts/material-icon/css/material-design-iconic-font.min.css">
 
     <!-- Main css -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css">
 </head>
 <body>
 
-    <?php defined('BASEPATH') OR exit('No direct script access allowed');
-       
-       tpl_assign("header_for_layout", '
-        <meta name="robots" content="noindex">
-        ');
-
-        tpl_assign("footer_for_layout", '
-        <script>
-            $(".copy-login").click(function () {
-                $("#email").val($(this).data("email"));
-                $("#password").val($(this).data("password"));
-            })
-        </script>
-        ');
-
-    ?>
 
 
     <div class="main">
@@ -39,13 +24,31 @@
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure>
-                            <img src="img/untan.png" align="center" style="height: 50px;" alt="sing up image"> 
+                            <img src="<?php echo base_url();?>assets/img/untan.png" align="center" style="height: 50px;" alt="sing up image"> 
                             <h4>Universitas Tanjungpura</h4>
-                            <img src="img/work.svg" alt="sing up image">
+                            <img src="<?php echo base_url();?>assets/img/work.svg" alt="sing up image">
                         </figure>
                         <!-- <a href="register.html" class="signup-image-link">Register Akun</a> -->
                     </div>
                     
+                    <?php if(isset($heading_for_dialog) || isset($title_for_layout)) : ?>
+                        <h4 class="login-box-msg"><?php echo (isset($heading_for_dialog) ? $heading_for_dialog : $title_for_layout); ?></h4>
+                    <?php endif; ?>
+
+                    <?php $gl_success = isset($success) ? $success : $this->session->flashdata('success'); ?>
+                    <?php if(!empty($gl_success)) :?>
+                        <div class="alert alert-success"><?php echo $gl_success; ?></div>
+                    <?php endif; ?>
+
+                    <?php $gl_error = isset($error) ? $error : $this->session->flashdata('error'); ?>
+
+                    <?php if(!empty($gl_error)) :?>
+                        <div class="alert alert-danger"><?php echo $gl_error; ?></div>
+                    <?php endif; ?>
+
+                    <?php echo (isset($content_for_layout) ? $content_for_layout : ''); ?>
+
+
                     <div class="signin-form">
                         <h3 align="center">Sistem Monitoring dan Pelaporan Pekerjaan UPT.TIK</h3> <br>
                         <form method="POST" class="register-form" id="login-form">
@@ -75,31 +78,13 @@
     </div>
 
     <!-- JS -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="<?php echo base_url();?>public/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="<?php echo base_url();?>public/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+            $(".copy-login").click(function () {
+                $("#email").val($(this).data("email"));
+                $("#password").val($(this).data("password"));
+            });
+    </script>
 </body>
 </html>
-
-
-<form id="login-form" method="post">
-
-<div class="form-group">
-        <input class="form-control" placeholder="<?php echo lang('c_1'); ?>" name="email" id="email" type="text" maxlength="100" value="<?php echo clean_field($email); ?>" autofocus>
-</div>
-
-<div class="form-group">
-        <input class="form-control" placeholder="<?php echo lang('c_2'); ?>" name="password" id="password" type="password" value="demo1234">
-</div>
-
-<div class="form-group">
-        <label><input name="remember" type="checkbox"<?php echo ($remember ? ' checked="checked"' : ''); ?>> &nbsp;<?php echo lang('c_3'); ?></label>
-</div>
-
-<input type="hidden" name="submited" value="submited" />
-
-<button type="submit" class="btn btn-lg btn-success btn-block"><?php echo lang('c_4'); ?></button>
-
-<p>&nbsp;</p>
-<p align="center"><a href="<?php echo get_page_base_url('access/forgot_password'); ?>"><?php echo lang('c_5'); ?></a></p>
-
-</form>
