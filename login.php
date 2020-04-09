@@ -14,6 +14,27 @@
 </head>
 <body>
 
+    <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
+        tpl_assign("title_for_layout", lang('c_4'));
+        tpl_assign("heading_for_dialog", lang('c_6'));
+
+        tpl_assign("header_for_layout", '
+        <meta name="robots" content="noindex">
+        ');
+
+        tpl_assign("footer_for_layout", '
+        <script>
+            $(".copy-login").click(function () {
+                $("#email").val($(this).data("email"));
+                $("#password").val($(this).data("password"));
+            })
+        </script>
+        ');
+
+    ?>
+
+
     <div class="main">
         <!-- Sing in  Form -->
         <section class="sign-in">
@@ -33,20 +54,23 @@
                         <form method="POST" class="register-form" id="login-form">
                             <div class="form-group">
                                 <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="your_name" id="your_name" placeholder="Username"/>
+                                <input class="form-control" placeholder="<?php echo lang('c_1'); ?>" name="email" id="email" type="text" maxlength="100" value="<?php echo clean_field($email); ?>" autofocus>
                             </div>
                             <div class="form-group">
                                 <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="your_pass" id="your_pass" placeholder="Password"/>
+                                <input class="form-control" placeholder="<?php echo lang('c_2'); ?>" name="password" id="password" type="password" value="demo1234">
                             </div>
                             <div class="form-group">
-                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                                
+                                <input name="remember" id="remember-me" class="agree-term" type="checkbox"<?php echo ($remember ? ' checked="checked"' : ''); ?>> &nbsp;<?php echo lang('c_3'); ?>
+                                <label for="remember" class="label-agree-term"><span><span></span></span>Remember me</label>
                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/><br><br>
                                 <!-- <figure><img src="images/ristekdikti.png" alt="" style="height: 100px;"> <img src="images/logo-baru.jpg" alt="" style="height: 100px;"></figure> -->
                             </div>
+                            <p>&nbsp;</p>
+                            <p align="center"><a href="<?php echo get_page_base_url('access/forgot_password'); ?>"><?php echo lang('c_5'); ?></a></p>
                         </form>
                     </div>
                 </div>
